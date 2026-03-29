@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -32,10 +33,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http){
         http.csrf(AbstractHttpConfigurer::disable)
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(
                         auth -> auth
-                                .requestMatchers("/api/auth/**","/api/dashboard/**").permitAll()
-                                .requestMatchers("/api/admin.**").hasAuthority("ADMIN")
+                                .requestMatchers("/api/auth/**").permitAll()
+                                .requestMatchers("/api/public/**").permitAll()
+                                .requestMatchers("/api/admin/**").hasAuthority("ADMIN")
                                 .requestMatchers("/api/patient/**").hasAnyAuthority("ADMIN","PATIENT")
                                 .requestMatchers("/api/doctor/**").hasAnyAuthority("ADMIN","DOCTOR")
                                 .anyRequest().authenticated()

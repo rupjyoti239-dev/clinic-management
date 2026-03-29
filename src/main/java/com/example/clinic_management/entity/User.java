@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class User extends Audit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

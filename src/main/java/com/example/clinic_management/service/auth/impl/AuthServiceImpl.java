@@ -52,7 +52,10 @@ public class AuthServiceImpl implements AuthService {
             throw new ResourceAlreadyExistException("Mobile already exist");
         }
 
-        User user = modelMapper.map(registerDto,User.class);
+        User user = new User();
+        user.setName(registerDto.getName());
+        user.setEmail(registerDto.getEmail());
+        user.setMobile(registerDto.getMobile());
         user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
         user.setRole(Role.PATIENT);
         User savedUser = userRepository.save(user);
