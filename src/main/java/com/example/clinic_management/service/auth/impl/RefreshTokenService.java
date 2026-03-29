@@ -7,6 +7,7 @@ import com.example.clinic_management.exception.ResourceNotFoundException;
 import com.example.clinic_management.repository.RefreshTokenRepository;
 import com.example.clinic_management.util.JwtUtil;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -24,6 +25,7 @@ public class RefreshTokenService {
     }
 
 
+    @Transactional
     public RefreshToken createRefreshToken(User user)
     {
         RefreshToken refreshToken = new RefreshToken();
@@ -36,6 +38,7 @@ public class RefreshTokenService {
     }
 
 
+    @Transactional
     public  RefreshToken verifyRefreshToken(String refreshToken)
     {
         RefreshToken refreshToken1 =
@@ -46,6 +49,7 @@ public class RefreshTokenService {
         return refreshToken1;
     }
 
+    @Transactional
     public LoginResponseDto refreshToken(String token)
     {
         RefreshToken oldToken = verifyRefreshToken(token);
@@ -57,6 +61,11 @@ public class RefreshTokenService {
         loginResponseDto.setAccessToken(accessToken);
         loginResponseDto.setRefreshToken(newRefreshToken.getRefreshToken());
         return loginResponseDto;
+    }
+
+    @Transactional
+    public void deleteExpiredTokens() {
+        refreshTokenRepository.deleteByExpiryDateBefore(LocalDateTime.now());
     }
 
 

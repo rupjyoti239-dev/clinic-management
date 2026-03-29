@@ -14,6 +14,7 @@ import com.example.clinic_management.util.JwtUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -41,6 +42,7 @@ public class AuthServiceImpl implements AuthService {
 
 
 
+    @Transactional
     @Override
     public String register(RegisterDto registerDto) {
         if(userRepository.existsByEmail(registerDto.getEmail()))
@@ -64,6 +66,7 @@ public class AuthServiceImpl implements AuthService {
 
 
 
+    @Transactional
     @Override
     public LoginResponseDto login(LoginDto loginDto) {
         User logedinUser =
