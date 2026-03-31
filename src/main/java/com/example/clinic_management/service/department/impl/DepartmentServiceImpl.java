@@ -42,6 +42,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         return  modelMapper.map(newDepartment,DepartmentResponse.class);
     }
 
+    @Transactional
     @Override
     public DepartmentResponse getDepartment(Long deptId) {
         Department department = departmentRepository.findById(deptId).orElseThrow(
@@ -85,6 +86,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
 
 
+    @Transactional
     @Override
     public Page<DepartmentResponse> departmentList(Boolean status, Pageable pageable) {
        Page<Department> departments;

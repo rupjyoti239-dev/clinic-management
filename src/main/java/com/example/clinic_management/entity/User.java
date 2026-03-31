@@ -24,4 +24,9 @@ public class User extends Audit {
     private String mobile;
     @Enumerated(EnumType.STRING)
     private Role role;
+
+
+   @OneToOne(mappedBy = "user")
+    private Doctor doctor;
+
 }

@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/department")
+@RequestMapping("/api/public/department")
 public class DepartmentPublicController {
 
     private final DepartmentService departmentService;
