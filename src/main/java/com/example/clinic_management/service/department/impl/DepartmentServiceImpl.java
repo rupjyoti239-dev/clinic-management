@@ -86,7 +86,14 @@ public class DepartmentServiceImpl implements DepartmentService {
 
 
     @Override
-    public Page<DepartmentResponse> departmentList(Pageable pageable) {
-        return null;
+    public Page<DepartmentResponse> departmentList(Boolean status, Pageable pageable) {
+       Page<Department> departments;
+       if(status!=null)
+       {
+        departments = departmentRepository.findByStatus(status,pageable);
+       }else{
+       departments = departmentRepository.findActiveDepartments(pageable);
+       }
+       return departments.map(department -> modelMapper.map(department,DepartmentResponse.class));
     }
 }

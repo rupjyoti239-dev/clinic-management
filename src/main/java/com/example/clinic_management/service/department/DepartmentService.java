@@ -11,5 +11,5 @@ public interface DepartmentService {
     public DepartmentResponse getDepartment(Long deptId);
     public DepartmentResponse updateDepartment(DepartmentUpdate departmentUpdate,Long deptId);
     public DepartmentResponse updateDepartmentStatus(Long deptId,Boolean status);
-    public Page<DepartmentResponse> departmentList(Pageable pageable);
+    public Page<DepartmentResponse> departmentList(Boolean status,Pageable pageable);
 }
